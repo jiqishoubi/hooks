@@ -27,6 +27,7 @@ const useAntdTable = <TData extends Data, TParams extends Params>(
   } = options;
 
   const result = usePagination<TData, TParams>(service, {
+    ready,
     manual: true,
     ...rest,
     onSuccess(...args) {
@@ -207,7 +208,7 @@ const useAntdTable = <TData extends Data, TParams extends Params>(
       run(...params);
       return;
     }
-    if (!manual && ready) {
+    if (ready) {
       allFormDataRef.current = defaultParams?.[1] || {};
       restoreForm();
       _submit(defaultParams?.[0]);
